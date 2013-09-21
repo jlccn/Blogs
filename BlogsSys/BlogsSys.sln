@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs", "Blogs\Blogs.csproj", "{530FFD41-16B2-495F-84D1-FED5C34EB0D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamSys", "ExamSys\ExamSys.csproj", "{0152E606-1A14-471C-85A2-4DBD02D6CCEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{530FFD41-16B2-495F-84D1-FED5C34EB0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530FFD41-16B2-495F-84D1-FED5C34EB0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530FFD41-16B2-495F-84D1-FED5C34EB0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530FFD41-16B2-495F-84D1-FED5C34EB0D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0152E606-1A14-471C-85A2-4DBD02D6CCEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0152E606-1A14-471C-85A2-4DBD02D6CCEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0152E606-1A14-471C-85A2-4DBD02D6CCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0152E606-1A14-471C-85A2-4DBD02D6CCEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

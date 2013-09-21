@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户登录 </title>
+    <link href="../Styles/login.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function SetFocus() {
+            document.getElementById('tbUserName').focus();
+        }
+
+        function checkEnter(event) {
+            if (event.keyCode == 13) {
+                if (document.getElementById("tbPassword").value == '') {
+                    document.getElementById("tbPassword").focus();
+                    return false;
+                }
+            }
+            return true;
+        }       
+    </script>
+</head>
+<body onload="SetFocus()">
+    <form name="frmLogin" method="post" id="frmLogin">
+    <div style="width: 100%;">
+        <div align="center">
+            <div id="Main">
+                <div id="Heading">
+                    登录系统</div>
+                <label class="MyLabel">
+                    用户名</label>
+                <div class="line">
+                    <input name="tbUserName" type="text" id="tbUserName" class="Textbox" /></div>                
+                <label class="MyLabel">
+                    密码</label>
+                <div class="line">
+                    <input name="tbPassword" type="password" id="tbPassword" class="Textbox" />                   
+                <div>               
+                    <input type="submit" name="btnLogin" value="登  录" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnLogin&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))"
+                        id="btnLogin" class="Button" style="margin-top: 8px" />
+                    &nbsp;&nbsp;<a id="lnkReturnUrl" href="http://www.cnblogs.com/gdjlc/admin/EditPosts.aspx">返
+                        回</a>
+                </div>            
+                <div style="clear: both" />              
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
