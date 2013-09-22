@@ -26,12 +26,12 @@
                     total: data.total
                 });
                 $('.jsondate').each(function () {
-                    var d = $(this).html().trim();
+                    var d = $(this).html();
                     var now = new Date(parseInt(d.substr(6)));                  
                     $(this).html(now.Format("yyyy年MM月dd日"));
                 });
                 $('.jsondate2').each(function () {
-                    var d = $(this).html().trim();
+                    var d = $(this).html();
                     var now = new Date(parseInt(d.substr(6)));
                     $(this).html(now.Format("yyyy-MM-dd hh:mm"));
                 });
@@ -42,16 +42,16 @@
 </script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContentHolder">
-
+    <br />
     <div id="TmpContent">  
     </div> 
     <textarea id="template" style="display:none"> 
-    {#foreach $T.rows as record}  
+    {#foreach $T.rows as record}       
     <div class="day">
+        {#if $T.record$first == false}
         <div class="dayTitle">
-            <%--<a href="#" class="jsondate">
-                {$T.record.PublishDate}  </a>--%>
         </div>
+        {#/if}
         <div class="postTitle">
             <a class="postTitle2"
                 href="Detail.aspx?id={$T.record.Id}"> {$T.record.Subject}</a>
@@ -64,9 +64,8 @@
         <div class="clear">
         </div>
         <div class="postDesc">
-            posted @ <span class="jsondate2">{$T.record.PublishDate}</span> gdjlc 阅读(19) <a href="#" rel="nofollow">编辑</a></div>
-        <div class="clear">
-        </div>
+            posted @ <span class="jsondate2">{$T.record.PublishDate}</span> gdjlc 阅读({$T.record.VisitTotal})</div>
+      
     </div>
     {#/for}   
     </textarea>  

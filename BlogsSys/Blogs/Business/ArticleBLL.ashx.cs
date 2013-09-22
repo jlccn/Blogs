@@ -33,6 +33,22 @@ namespace Blogs
             var obj = new { total = count, rows = List };
             return obj;
         }
+      
+
+        public object CountStat()
+        {
+            int archiveCount = Db.GetList<Archive>().Count();
+            int visitCount = Db.GetList<Archive>().Sum(a => a.VisitTotal);
+            var obj = new { archiveCount = archiveCount, visitCount = visitCount };
+            return obj;
+        }
+      
+        public void UpdateVisitTotal(int id)
+        {
+            var m = Db.Get<Archive>(id);
+            m.VisitTotal = m.VisitTotal + 1;
+            Db.Update(m);           
+        }
 
         private string FormatStr(string str, int len)
         {

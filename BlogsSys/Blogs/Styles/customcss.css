@@ -112,24 +112,24 @@ a:active {
 	-webkit-border-radius: 11px;
 	border-radius: 11px;
 	-webkit-box-shadow:5px 2px 6px #000;-moz-box-shadow:5px 2px 6px #000;padding:4px 10px;
+	background:url('../Images/bg.gif') repeat;
 }
-#blogTitle h1 {
-	font-size: 200%;
+#blogTitle img 
+{    
 	line-height: 2em;
 	margin-left: 1em;
 	margin-top: 0.4em;
 	width: 50%;
 	float: left;
 }
-#blogTitle h1 a{
-	color:#1a9ee9;;
-}
-#blogTitle h2 {
+#blogTitle h2 
+{
+    margin-top: 1em;
 	margin-left: 4em;
 	line-height: 1.5em;
 	width: 50%;
 	float: left;
-	color:#cbe4f8;
+	font-size:18px;
 }
 #blogLogo {
 	float: right;
@@ -222,16 +222,11 @@ a:active {
 .dayTitle {
 	width: 100%;
 	color: #666;
-	float:right;
-	font-weight: bold;
-	line-height: 1.5em;
-	font-size: 110%;
-	margin-top: 3px;
+	float:right;	
+	margin-top: 5px;
 	margin-bottom: 10px;
 	clear:both;
-	border-bottom: 2px solid #e9f3e8;
-	text-align:center;
-
+	border-bottom: 2px solid #e9f3e8;	
 }
 .postTitle {
 	font-size: 110%;

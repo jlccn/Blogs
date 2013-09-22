@@ -28,6 +28,10 @@
                 $("#CateCountList").setTemplateElement("CateCountListTemplate", null, { filter_data: false });
                 $("#CateCountList").processTemplate(data);
             });
+            $.net.ArticleBLL.CountStat(function (data) {
+                $("div.blogStats").append(data.archiveCount);
+                $("#spVisitCount").html(data.visitCount);
+            });
         });
     </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
@@ -39,16 +43,9 @@
     <!--done-->
     <div id="home">
         <div id="header">
-            <div id="blogTitle">
-                <a id="lnkBlogLogo" href="Default.aspx">
-                    <%--<img id="blogLogo" src="gdjlc_files/logo.gif" alt="返回主页"/>--%>
-                </a>             
-                <h1>
-                    <a id="Header1_HeaderTitle" class="headermaintitle" href="Default.aspx">
-                        gdjlc</a>
-                </h1>
-                <h2>
-                    http://blog.csdn.net/gdjlc</h2>
+            <div id="blogTitle">               
+                <img id="blogLogo" src="Images/font.jpg" alt=""/>               
+                <h2><a href="http://blog.csdn.net/gdjlc" target="_blank">gdjlc的博客</a></h2>
             </div>
             <!--end: blogTitle 博客的标题和副标题 -->
             <div id="blogNavigator">
@@ -58,7 +55,7 @@
                         管理</a></li>
                 </ul>
                 <div class="blogStats">
-                    随笔- 154&nbsp; 文章- 0&nbsp; 评论- 16&nbsp;
+                    随笔- 
                 </div>
                 <!--end: blogStats -->
             </div>
@@ -80,9 +77,9 @@
                             公告</h3>
                         <div id="blog-news">
                             <div id="profile_block">
-                                昵称：<a href="http://home.cnblogs.com/u/gdjlc/">gdjlc</a><br/>
-                                园龄：<a href="http://home.cnblogs.com/u/gdjlc/" title="入园时间：2010-11-16">2年9个月</a>                               
-                                </div>
+                                创建：2008年6月<br/>
+                                访问：<span id="spVisitCount">0</span>次<br/>
+                               </div>
                             </div>
                         </div>
                     </div>                   
@@ -92,7 +89,7 @@
                                 <h3 class="catListTitle">
                                     搜索</h3>
                                 <div id="widget_my_zzk" class="div_my_zzk">
-                                    <input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text"/>&nbsp;<input
+                                    <input id="q" class="input_my_zzk" type="text"/>&nbsp;<input
                                         onclick="zzk_go()" value="站内" id="btnZzk" class="btn_my_zzk" type="button"></div>
                                 <div id="widget_my_google" class="div_my_zzk">
                                     <input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk"

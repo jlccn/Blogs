@@ -16,5 +16,6 @@ namespace Blogs
         public int FromPageSeq { get; set; }
         public string CollectDate { get; set; }
         public int CategoryId { get; set; }
+        public int VisitTotal { get; set; }
     }
 }

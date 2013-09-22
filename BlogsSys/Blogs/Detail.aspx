@@ -9,11 +9,12 @@
     <script type="text/javascript">
         $(function () {
             var id = $.getUrlParam('id');
-            $.net.ArticleBLL.DetailById(id, function (data) {   
+            $.net.ArticleBLL.UpdateVisitTotal(id, function (data) { });
+            $.net.ArticleBLL.DetailById(id, function (data) {
                 $("#topics").setTemplateElement("template", null, { filter_data: false });
                 $("#topics").processTemplate(data);
                 prettyPrint();
-            });            
+            });
         });
        
     </script>
@@ -24,7 +25,7 @@
     <textarea id="template" style="display: none"> 
        <div class="post">
             <h1 class="postTitle">
-                <a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/gdjlc/p/3313713.html">
+                <a id="cb_post_title_url" class="postTitle2" href="#">
                     {$T.Subject} </a>
             </h1>
             <div class="clear">
