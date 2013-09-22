@@ -14,28 +14,21 @@ namespace Blogs
     {
         IDatabase Db = DB.GetDatabase();
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
-        public object GetPageData(int page, int rows)//, string key)
+        public object GetPageData(int page, int rows)
         {
             int pageIndex = page - 1;
             int pageSzie = rows;
-
-            IPredicate pred = null;
-            //if (!string.IsNullOrEmpty(key))
-            //{
-            //    key = string.Format("%{0}%", key);
-            //    pred = Predicates.Field<Archive>(p => p.Content, Operator.Like, key);
-            //}
-
+         
             var sort = new List<ISort>
                                     {
                                         Predicates.Sort<Archive>(p => p.Id)
                                     };
 
-            List<Archive> List = Db.GetPage<Archive>(pred, sort, pageIndex, pageSzie).ToList();
+            List<Archive> List = Db.GetPage<Archive>(null, sort, pageIndex, pageSzie).ToList();
             List.ForEach((p) => {
                 p.Content = FormatStr(p.Content, 200);
             });
-            int count = Db.Count<Archive>(pred);
+            int count = Db.Count<Archive>(null);
 
             var obj = new { total = count, rows = List };
             return obj;

@@ -3,25 +3,32 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>用户登录 </title>
+    <script src="../Scripts/jquery.min.js" type="text/javascript"></script> 
+    <script src="../Business/UserBLL_Ad.ashx" charset="utf-8" type="text/javascript"></script>
     <link href="../Styles/login.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-        function SetFocus() {
-            document.getElementById('tbUserName').focus();
-        }
-
-        function checkEnter(event) {
-            if (event.keyCode == 13) {
-                if (document.getElementById("tbPassword").value == '') {
-                    document.getElementById("tbPassword").focus();
-                    return false;
+        $(function () {
+            $('#txtUserName').focus();
+            $('#btnLogin').click(function () {
+                var userName = $('#txtUserName').val();
+                var password = $('#txtPassword').val();
+                if (userName == '' || password == '') {
+                    $('#Message').html('用户名或密码不能为空！');
+                } else {                   
+                    $.net.UserBLL_Ad.CheckLogin(userName, password, function (data) {
+                        if (data == "1")
+                            location.href = "index.htm";
+                        else
+                            $('#Message').html('用户名或密码输入错误！'); 
+                    });
                 }
-            }
-            return true;
-        }       
+            });
+        });       
+
     </script>
 </head>
-<body onload="SetFocus()">
-    <form name="frmLogin" method="post" id="frmLogin">
+<body>
+    <form name="frmLogin" id="frmLogin">
     <div style="width: 100%;">
         <div align="center">
             <div id="Main">
@@ -30,20 +37,21 @@
                 <label class="MyLabel">
                     用户名</label>
                 <div class="line">
-                    <input name="tbUserName" type="text" id="tbUserName" class="Textbox" /></div>                
+                    <input name="tbUserName" type="text" id="txtUserName" class="Textbox" /></div>                
                 <label class="MyLabel">
                     密码</label>
                 <div class="line">
-                    <input name="tbPassword" type="password" id="tbPassword" class="Textbox" />                   
+                    <input name="tbPassword" type="password" id="txtPassword" class="Textbox" />                   
                 <div>               
-                    <input type="submit" name="btnLogin" value="登  录" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnLogin&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))"
-                        id="btnLogin" class="Button" style="margin-top: 8px" />
+                    <input type="button" name="btnLogin" value="登  录" id="btnLogin" class="Button" style="margin-top: 8px" />
                     &nbsp;&nbsp;<a id="lnkReturnUrl" href="http://www.cnblogs.com/gdjlc/admin/EditPosts.aspx">返
                         回</a>
                 </div>            
-                <div style="clear: both" />              
+                <div style="clear: both" />   
+                 <span id="Message" class="ErrorMessage" style="color:Red;"></span>           
             </div>
         </div>
+    </div>
     </div>
     </form>
 </body>

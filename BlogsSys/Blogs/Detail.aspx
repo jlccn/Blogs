@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="Detail.aspx.cs" Inherits="Blogs.Detail" %>
+   Inherits="System.Web.UI.Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script src="Scripts/kindeditor-4.1.7/kindeditor-min.js" type="text/javascript"></script>

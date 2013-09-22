@@ -4,6 +4,7 @@
     <title>Demo</title>
     <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
     <script src="../Res/easyui/jquery.easyui.min.js" type="text/javascript"></script>    
+    <script src="../Business/UserBLL_Ad.ashx" charset="utf-8" type="text/javascript"></script>
     <script src="../Res/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
     <link href="../Res/easyui/themes/metro/easyui.css" rel="stylesheet" type="text/css" id="swicth-style"/>
     <style type="text/css">
@@ -58,7 +59,7 @@ a:active {
 	height: 40px;
 	margin: 15px 0px 0px 5px;
 	display: inline-block;
-	color:#000000;font-size:22px;font-weight:bold;text-decoration:none
+	color:#000000;font-size:20px;text-decoration:none
 }
 .cs-west {
 	width:200px;padding:0px;
@@ -247,6 +248,13 @@ a:active {
     }
 
     $(function () {
+        $.net.UserBLL_Ad.IsLogin(function (d) { eval(d); });
+        $.net.UserBLL_Ad.GetUser(function (d) { $('#spUserName').html('欢迎您，' + d); });
+
+        $('#aLogOut').click(function () {
+            $.net.UserBLL_Ad.LoginOut(function (d) { eval(d); });
+        });
+
         tabCloseEven();
 
         $('.cs-navi-tab').click(function () {
@@ -306,7 +314,9 @@ a:active {
 <body class="easyui-layout">
 	<div region="north" border="true" class="cs-north">
 		<div class="cs-north-bg">
-		<div class="cs-north-logo"><!--jQuery EasyUI 1.3.3--> </div>
+		<div class="cs-north-logo">博客后台管理系统
+         <span id="spUserName" style="font-size:12px; margin-left: 50px; font-weight:normal;"></span>&nbsp;&nbsp;<a href="javascript:void(0)" id="aLogOut" style="font-size:12px; font-weight:normal;">注销</a>
+        </div>
 		<ul class="ui-skin-nav">				
 			<li class="li-skinitem" title="gray"><span class="gray" rel="gray"></span></li>
 			<li class="li-skinitem" title="default"><span class="default" rel="default"></span></li>
@@ -318,7 +328,7 @@ a:active {
 			<li class="li-skinitem" title="cupertino"><span class="cupertino" rel="cupertino"></span></li>
 			<li class="li-skinitem" title="dark-hive"><span class="dark-hive" rel="dark-hive"></span></li>
 			<li class="li-skinitem" title="sunny"><span class="sunny" rel="sunny"></span></li>
-		</ul>
+		</ul>        
 		</div>
 	</div>
 	<div region="west" border="true" split="true" title="导航菜单" class="cs-west">
