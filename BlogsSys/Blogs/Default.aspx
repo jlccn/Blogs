@@ -49,8 +49,8 @@
     {#foreach $T.rows as record}  
     <div class="day">
         <div class="dayTitle">
-            <a href="#" class="jsondate">
-                {$T.record.PublishDate}  </a>
+            <%--<a href="#" class="jsondate">
+                {$T.record.PublishDate}  </a>--%>
         </div>
         <div class="postTitle">
             <a class="postTitle2"

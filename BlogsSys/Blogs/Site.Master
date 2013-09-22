@@ -41,7 +41,7 @@
         <div id="header">
             <div id="blogTitle">
                 <a id="lnkBlogLogo" href="Default.aspx">
-                    <img id="blogLogo" src="gdjlc_files/logo.gif" alt="返回主页"/>
+                    <%--<img id="blogLogo" src="gdjlc_files/logo.gif" alt="返回主页"/>--%>
                 </a>             
                 <h1>
                     <a id="Header1_HeaderTitle" class="headermaintitle" href="Default.aspx">
