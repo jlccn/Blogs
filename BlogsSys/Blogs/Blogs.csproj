@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="AspNetPager, Version=7.4.5.0, Culture=neutral, PublicKeyToken=fb0a0fe055d40fd4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\AspNetPager.dll</HintPath>
+      <HintPath>DLL\AspNetPager.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -60,7 +60,7 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="WebEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\WebEx.dll</HintPath>
+      <HintPath>DLL\WebEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
