@@ -13,7 +13,7 @@ namespace DapperExtensions
     public static class Predicates
     {
         /// <summary>
-        /// Factory method that creates a new IFieldPredicate predicate: [FieldName] [Operator] [Value].
+        /// Factory method that creates a new IFieldPredicate predicate: [FieldName] [Operator] [Value]. 
         /// Example: WHERE FirstName = 'Foo'
         /// </summary>
         /// <typeparam name="T">The type of the entity.</typeparam>
@@ -26,12 +26,12 @@ namespace DapperExtensions
         {
             PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
             return new FieldPredicate<T>
-            {
-                PropertyName = propertyInfo.Name,
-                Operator = op,
-                Value = value,
-                Not = not
-            };
+                       {
+                           PropertyName = propertyInfo.Name,
+                           Operator = op,
+                           Value = value,
+                           Not = not
+                       };
         }
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace DapperExtensions
             PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
             PropertyInfo propertyInfo2 = ReflectionHelper.GetProperty(expression2) as PropertyInfo;
             return new PropertyPredicate<T, T2>
-            {
-                PropertyName = propertyInfo.Name,
-                PropertyName2 = propertyInfo2.Name,
-                Operator = op,
-                Not = not
-            };
+                       {
+                           PropertyName = propertyInfo.Name,
+                           PropertyName2 = propertyInfo2.Name,
+                           Operator = op,
+                           Not = not
+                       };
         }
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace DapperExtensions
         public static IPredicateGroup Group(GroupOperator op, params IPredicate[] predicate)
         {
             return new PredicateGroup
-            {
-                Operator = op,
-                Predicates = predicate
-            };
+                       {
+                           Operator = op,
+                           Predicates = predicate
+                       };
         }
 
         /// <summary>
@@ -83,25 +83,25 @@ namespace DapperExtensions
             where TSub : class
         {
             return new ExistsPredicate<TSub>
-            {
-                Not = not,
-                Predicate = predicate
-            };
+                       {
+                           Not = not,
+                           Predicate = predicate
+                       };
         }
 
         /// <summary>
-        /// Factory method that creates a new IBetweenPredicate predicate.
+        /// Factory method that creates a new IBetweenPredicate predicate. 
         /// </summary>
         public static IBetweenPredicate Between<T>(Expression<Func<T, object>> expression, BetweenValues values, bool not = false)
             where T : class
         {
             PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
             return new BetweenPredicate<T>
-            {
-                Not = not,
-                PropertyName = propertyInfo.Name,
-                Value = values
-            };
+                       {
+                           Not = not,
+                           PropertyName = propertyInfo.Name,
+                           Value = values
+                       };
         }
 
         /// <summary>
@@ -111,10 +111,10 @@ namespace DapperExtensions
         {
             PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
             return new Sort
-            {
-                PropertyName = propertyInfo.Name,
-                Ascending = ascending
-            };
+                       {
+                           PropertyName = propertyInfo.Name,
+                           Ascending = ascending
+                       };
         }
     }
 
@@ -326,7 +326,13 @@ namespace DapperExtensions
             string seperator = Operator == GroupOperator.And ? " AND " : " OR ";
             return "(" + Predicates.Aggregate(new StringBuilder(),
                                         (sb, p) => (sb.Length == 0 ? sb : sb.Append(seperator)).Append(p.GetSql(sqlGenerator, parameters)),
-                                        sb => sb.ToString()) + ")";
+                sb =>
+                {
+                    var s = sb.ToString();
+                    if (s.Length == 0) return sqlGenerator.Configuration.Dialect.EmptyExpression; 
+                    return s;
+                }
+                                        ) + ")";
         }
     }
 

@@ -71,6 +71,7 @@
     <Content Include="Admin\index.htm" />
     <Content Include="Admin\CategoryEdit.htm" />
     <Content Include="Admin\login.htm" />
+    <Content Include="DapperExtensions\DapperExtensions.csproj" />
     <Content Include="Default.aspx" />
     <Content Include="Detail.aspx" />
     <Content Include="Global.asax" />
@@ -986,25 +987,27 @@
     <Compile Include="Business\CategoryBLL_Ad.ashx.cs">
       <DependentUpon>CategoryBLL_Ad.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Dapper\DapperExtensions.cs" />
-    <Compile Include="Dapper\DapperExtensionsConfiguration.cs" />
-    <Compile Include="Dapper\DapperImplementor.cs" />
-    <Compile Include="Dapper\Database.cs" />
-    <Compile Include="Dapper\GetMultiplePredicate.cs" />
-    <Compile Include="Dapper\GetMultipleResult.cs" />
-    <Compile Include="Dapper\Mapper\AutoClassMapper.cs" />
-    <Compile Include="Dapper\Mapper\ClassMapper.cs" />
-    <Compile Include="Dapper\Mapper\PluralizedAutoClassMapper.cs" />
-    <Compile Include="Dapper\Mapper\PropertyMap.cs" />
-    <Compile Include="Dapper\Predicates.cs" />
-    <Compile Include="Dapper\ReflectionHelper.cs" />
-    <Compile Include="Dapper\SqlMapper.cs" />
-    <Compile Include="Dapper\Sql\SqlCeDialect.cs" />
-    <Compile Include="Dapper\Sql\SqlDialectBase.cs" />
-    <Compile Include="Dapper\Sql\SqlGenerator.cs" />
-    <Compile Include="Dapper\Sql\SqliteDialect.cs" />
-    <Compile Include="Dapper\Sql\SqlServerDialect.cs" />
     <Compile Include="DAL\DB.cs" />
+    <Compile Include="dapper-dot-net\SqlMapper.cs" />
+    <Compile Include="DapperExtensions\DapperExtensions.cs" />
+    <Compile Include="DapperExtensions\DapperExtensionsConfiguration.cs" />
+    <Compile Include="DapperExtensions\DapperImplementor.cs" />
+    <Compile Include="DapperExtensions\Database.cs" />
+    <Compile Include="DapperExtensions\GetMultiplePredicate.cs" />
+    <Compile Include="DapperExtensions\GetMultipleResult.cs" />
+    <Compile Include="DapperExtensions\Mapper\AutoClassMapper.cs" />
+    <Compile Include="DapperExtensions\Mapper\ClassMapper.cs" />
+    <Compile Include="DapperExtensions\Mapper\PluralizedAutoClassMapper.cs" />
+    <Compile Include="DapperExtensions\Mapper\PropertyMap.cs" />
+    <Compile Include="DapperExtensions\Predicates.cs" />
+    <Compile Include="DapperExtensions\ReflectionHelper.cs" />
+    <Compile Include="DapperExtensions\Sql\MySqlDialect.cs" />
+    <Compile Include="DapperExtensions\Sql\PostgreSqlDialect.cs" />
+    <Compile Include="DapperExtensions\Sql\SqlCeDialect.cs" />
+    <Compile Include="DapperExtensions\Sql\SqlDialectBase.cs" />
+    <Compile Include="DapperExtensions\Sql\SqlGenerator.cs" />
+    <Compile Include="DapperExtensions\Sql\SqliteDialect.cs" />
+    <Compile Include="DapperExtensions\Sql\SqlServerDialect.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1022,6 +1025,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Models\Archive.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1044,6 +1048,9 @@
     <Content Include="Business\ArticleBLL.ashx" />
     <Content Include="Business\ArticleBLL_Ad.ashx" />
     <Content Include="Business\CategoryBLL_Ad.ashx" />
+    <None Include="DapperExtensions\buildPackage.cmd" />
+    <None Include="DapperExtensions\DapperExtensions.nuspec" />
+    <Content Include="DapperExtensions\packages.config" />
     <None Include="Images\Thumbs.db" />
     <None Include="Res\easyui\themes\black\images\Thumbs.db" />
     <None Include="Res\easyui\themes\bootstrap\images\Thumbs.db" />
