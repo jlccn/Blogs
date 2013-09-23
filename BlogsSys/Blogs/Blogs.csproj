@@ -754,6 +754,7 @@
     <Content Include="Scripts\Ext.js" />
     <Content Include="Scripts\jquery-jtemplates.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.pager.js" />
     <Content Include="Scripts\kindeditor-4.1.7\kindeditor-all-min.js" />
     <Content Include="Scripts\kindeditor-4.1.7\kindeditor-all.js" />
     <Content Include="Scripts\kindeditor-4.1.7\kindeditor-min.js" />
@@ -952,6 +953,7 @@
     <Content Include="Scripts\kindeditor-4.1.7\themes\qq\editor.gif" />
     <Content Include="Scripts\kindeditor-4.1.7\themes\qq\qq.css" />
     <Content Include="Scripts\kindeditor-4.1.7\themes\simple\simple.css" />
+    <Content Include="Styles\Pager.css" />
     <Content Include="Scripts\syntaxHighlighter.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Styles\common.css" />
@@ -968,6 +970,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\ArticleBLL_Ad.ashx.cs">
