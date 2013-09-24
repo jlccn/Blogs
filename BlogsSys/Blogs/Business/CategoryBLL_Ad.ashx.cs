@@ -36,6 +36,12 @@ namespace Blogs.Business
             return obj;
         }
 
+        public object GetList()
+        {
+            var result = Db.GetList<Category>();
+            return result;
+        }
+
         public object Get(int id)
         {
             var result = Db.Get<Category>(new Category { Id = id });

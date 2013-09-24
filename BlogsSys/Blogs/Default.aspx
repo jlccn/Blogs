@@ -6,14 +6,17 @@
     <link href="Styles/Pager.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var pageIndex = 1; //页面索引初始值 
-    var pageSize = 3; //每页显示条数初始化
-    var pagecount;
-    var jsondata;
+    var pageSize = 10; //每页显示条数初始化
+    var pagecount; 
+    var q;
     $(function () {
-        $.net.ArticleBLL.GetPageData(pageIndex, pageSize, function (data) {
+        q = unescape($.getUrlParam('q'));
+        $('#q').val(q);
+        $.net.ArticleBLL.GetPageData(pageIndex, pageSize, q, function (data) {
             pagecount = Math.ceil(data.total / pageSize);  //向上取整，有小数，则整数部分加1
             $("#pager").pager({ pagenumber: 1, pagecount: pagecount, buttonClickCallback: PageClick });
-            Go(1);           
+            //Go(1);            
+            OutputData(data);
         });
     });
     PageClick = function (pageclickednumber) {
@@ -21,19 +24,17 @@
         Go(pageclickednumber);         
     }
     function Go(index) {
-        $.net.ArticleBLL.GetPageData(index, pageSize, function (data) {
-            $("#TmpContent").setTemplateElement("template", null, { filter_data: false });
-            $("#TmpContent").processTemplate(data);
-            $('.jsondate').each(function () {
-                var d = $(this).html();
-                var now = new Date(parseInt(d.substr(6)));
-                $(this).html(now.Format("yyyy年MM月dd日"));
-            });
-            $('.jsondate2').each(function () {
-                var d = $(this).html();
-                var now = new Date(parseInt(d.substr(6)));
-                $(this).html(now.Format("yyyy-MM-dd hh:mm"));
-            });
+        $.net.ArticleBLL.GetPageData(index, pageSize, q, function (data) {
+            OutputData(data);
+        });
+    }
+    function OutputData(data) {
+        $("#TmpContent").setTemplateElement("template", null, { filter_data: false });
+        $("#TmpContent").processTemplate(data);
+        $('.jsondate').each(function () {
+            var d = $(this).html();
+            var now = new Date(parseInt(d.substr(6)));
+            $(this).html(now.Format("yyyy-MM-dd hh:mm"));
         });
     }
 </script>
@@ -61,7 +62,7 @@
         <div class="clear">
         </div>
         <div class="postDesc">
-            posted @ <span class="jsondate2">{$T.record.PublishDate}</span> gdjlc 阅读({$T.record.VisitTotal})</div>
+            posted @ <span class="jsondate">{$T.record.PublishDate}</span> gdjlc 阅读({$T.record.VisitTotal})</div>
       
     </div>
     {#/for}   

@@ -29,7 +29,7 @@ namespace Blogs.Business
 
             var sort = new List<ISort>
                                     {
-                                        Predicates.Sort<Archive>(p => p.Id)
+                                        Predicates.Sort<Archive>(p => p.PublishDate, false)
                                     };
 
             var List = Db.GetPage<Archive>(pred, sort, pageIndex, pageSzie).ToList();         
@@ -54,27 +54,31 @@ namespace Blogs.Business
         [ResponseAnnotation(Desc = "更新一条数据")]
         public string UpdateByID(int id)
         {
+            string publishDate = GetFormValue("PublishDate");
             var m = Db.Get<Archive>(id);
             m.Subject = GetFormValue("Subject");
             m.Content = GetFormValue("Content");
-
+            m.CategoryId = Convert.ToInt32(GetFormValue("CategoryId"));
+            m.PublishDate = string.IsNullOrEmpty(publishDate) ? DateTime.Now : Convert.ToDateTime(publishDate);
             var result = Db.Update(m);
             return result ? "OK" : "ERROR";
         }
 
         private string GetFormValue(string name)
         {
-           string s = HttpContext.Current.Request.Form[name].ToString();
-           //string n = HttpUtility.HtmlEncode(s);
+           string s = HttpContext.Current.Request.Form[name].ToString();    
            return s;
         }
 
         public string Add()
         {
+            string publishDate = GetFormValue("PublishDate");
             Archive arc = new Archive()
             {
                 Subject = GetFormValue("Subject"),
-                Content = GetFormValue("Content")
+                Content = GetFormValue("Content"),
+                CategoryId = Convert.ToInt32(GetFormValue("CategoryId")),
+                PublishDate = string.IsNullOrEmpty(publishDate) ? DateTime.Now : Convert.ToDateTime(publishDate)
             };
             int result = Db.Insert<Archive>(arc);
             return result > 0 ? "OK" : "ERROR";

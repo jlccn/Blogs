@@ -10,11 +10,8 @@ namespace Blogs
     {
         public int Id { get; set; }
         public string Subject { get; set; }
-        public string Content { get; set; }
-        public string ImgUrl { get; set; }
-        public DateTime PublishDate { get; set; }
-        public int FromPageSeq { get; set; }
-        public string CollectDate { get; set; }
+        public string Content { get; set; }      
+        public DateTime PublishDate { get; set; }       
         public int CategoryId { get; set; }
         public int VisitTotal { get; set; }
     }

@@ -14,7 +14,10 @@
                 $("#topics").setTemplateElement("template", null, { filter_data: false });
                 $("#topics").processTemplate(data);
                 prettyPrint();
-            });
+                var d = $('#post-date').html();               
+                var now = new Date(parseInt(d.substr(6)));
+                $('#post-date').html(now.Format("yyyy-MM-dd hh:mm"));
+            });           
         });
        
     </script>
@@ -39,9 +42,8 @@
             </div>
             <div class="postDesc">
                 posted @ <span id="post-date">{$T.PublishDate}</span> <a href='Default.aspx'>
-                    gdjlc</a> 阅读(<span id="post_view_count">...</span>) 
-                <a href="http://www.cnblogs.com/gdjlc/admin/EditPosts.aspx?postid=3313713" rel="nofollow">
-                    编辑</a></div>
+                    gdjlc</a> 阅读({$T.VisitTotal}) 
+                </div>
         </div>
     </textarea>
 </asp:Content>

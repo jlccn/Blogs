@@ -49,7 +49,8 @@
         var $pager = $('<ul class="pages"></ul>');
 
         // add in the previous and next buttons
-        $pager.append(renderButton('first', pagenumber, pagecount, buttonClickCallback)).append(renderButton('prev', pagenumber, pagecount, buttonClickCallback));
+        if(pagenumber > 1)
+            $pager.append(renderButton('first', pagenumber, pagecount, buttonClickCallback)).append(renderButton('prev', pagenumber, pagecount, buttonClickCallback));
 
         // pager currently only handles 10 viewable pages ( could be easily parameterized, maybe in next version ) so handle edge cases
         var startPoint = 1;
@@ -79,7 +80,8 @@
         }
 
         // render in the next and last buttons before returning the whole rendered control back.
-        $pager.append(renderButton('next', pagenumber, pagecount, buttonClickCallback)).append(renderButton('last', pagenumber, pagecount, buttonClickCallback));
+        if (pagenumber < pagecount)
+            $pager.append(renderButton('next', pagenumber, pagecount, buttonClickCallback)).append(renderButton('last', pagenumber, pagecount, buttonClickCallback));
 
         return $pager;
     }

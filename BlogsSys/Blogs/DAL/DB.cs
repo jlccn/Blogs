@@ -16,12 +16,12 @@ namespace Blogs
     {
         private static readonly string sqliteConnectionString = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
 
-        public static SQLiteConnection GetConn()
-        {
-            var conn = new SQLiteConnection(sqliteConnectionString);
-            conn.Open();
-            return conn;
-        }
+        //public static SQLiteConnection GetConn()
+        //{
+        //    var conn = new SQLiteConnection(sqliteConnectionString);
+        //    conn.Open();
+        //    return conn;
+        //}
 
         public static IDatabase GetDatabase()
         {
