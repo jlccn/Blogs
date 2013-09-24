@@ -971,6 +971,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Index.aspx" />
+    <Content Include="Category.aspx" />
+    <Content Include="Month.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\ArticleBLL_Ad.ashx.cs">

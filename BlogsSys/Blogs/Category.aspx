@@ -10,11 +10,10 @@
     var pagecount; 
     var q;
     $(function () {
-        q = unescape($.getUrlParam('q'));
-        $('#q').val(q);
-        $.net.ArticleBLL.GetPageData(pageIndex, pageSize, q, function (data) {
+        q = $.getUrlParam('q'); 
+        $.net.ArticleBLL.GetPageDataByCategory(pageIndex, pageSize, q, function (data) {
             pagecount = Math.ceil(data.total / pageSize);  //向上取整，有小数，则整数部分加1
-            $("#pager").pager({ pagenumber: 1, pagecount: pagecount, buttonClickCallback: PageClick });                    
+            $("#pager").pager({ pagenumber: 1, pagecount: pagecount, buttonClickCallback: PageClick });
             OutputData(data);
         });
     });
@@ -23,7 +22,7 @@
         Go(pageclickednumber);         
     }
     function Go(index) {
-        $.net.ArticleBLL.GetPageData(index, pageSize, q, function (data) {
+        $.net.ArticleBLL.GetPageDataByCategory(index, pageSize, q, function (data) {
             OutputData(data);
         });
     }
@@ -68,5 +67,6 @@
     </textarea>  
     <div class="topicListFooter"> 
         <div id="pager" ></div>      
+        <%--<div id="Pagination" style="background:#F5F5F5;border:1px solid #ccc;"></div> --%> 
     </div>    
 </asp:Content>

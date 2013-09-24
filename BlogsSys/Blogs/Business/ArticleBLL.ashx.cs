@@ -16,23 +16,45 @@ namespace Blogs
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
         public object GetPageData(int page, int rows, string key)
         {
-            int pageIndex = page - 1;
-            int pageSzie = rows;
-
             IPredicate pred = null;
             if (!string.IsNullOrEmpty(key))
             {
                 key = string.Format("%{0}%", key);
                 pred = Predicates.Field<Archive>(p => p.Content, Operator.Like, key);
             }
+           return GetData(page, rows, pred);
+        }
+        public object GetPageDataByCategory(int page, int rows, string key)
+        {
+            IPredicate pred = null;
+            if (!string.IsNullOrEmpty(key))
+            {               
+                pred = Predicates.Field<Archive>(p => p.CategoryId, Operator.Eq, key);
+            }
+            return GetData(page, rows, pred);
+        }
+        public object GetPageDataByMonth(int page, int rows, string key)
+        {
+            IPredicate pred = null;
+            if (!string.IsNullOrEmpty(key))
+            {
+                pred = Predicates.Field<Archive>(p => p.PublishDate.ToString("yyyyMM"), Operator.Eq, key);
+            }
+            return GetData(page, rows, pred);
+        }
 
+        private object GetData(int page, int rows, IPredicate pred)
+        {
+            int pageIndex = page - 1;
+            int pageSzie = rows;
             var sort = new List<ISort>
                                     {
                                         Predicates.Sort<Archive>(p => p.PublishDate, false)
                                     };
 
             List<Archive> List = Db.GetPage<Archive>(pred, sort, pageIndex, pageSzie).ToList();
-            List.ForEach((p) => {
+            List.ForEach((p) =>
+            {
                 p.Content = FormatStr(p.Content, 200);
             });
             int count = Db.Count<Archive>(pred);
@@ -40,7 +62,10 @@ namespace Blogs
             var obj = new { total = count, rows = List };
             return obj;
         }
-      
+
+
+
+
 
         public object CountStat()
         {
@@ -79,7 +104,8 @@ namespace Blogs
                 Month = p.PublishDate.Month
             }).Select( g=> new 
             {
-                YM = g.Key.Year + "年" + g.Key.Month + "月",
+                YyyyMm = g.Key.Year.ToString() + g.Key.Month.ToString().PadLeft(2,'0'),
+                YM = g.Key.Year.ToString() + "年" + g.Key.Month.ToString() + "月",
                 Count = g.Count()
             }).OrderByDescending(g=>g.YM.Substring(0,4))
             .ThenByDescending(g => g.YM.Substring(5, g.YM.Length - 6));
@@ -92,6 +118,7 @@ namespace Blogs
         {
             var list = Db.GetList<Category>().Select(p => new
             {
+                Id = p.Id,
                 Name = p.Name,
                 Count = Db.GetList<Archive>().Count(a => a.CategoryId == p.Id)
             })

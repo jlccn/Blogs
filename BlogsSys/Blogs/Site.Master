@@ -107,7 +107,7 @@
                                  </ul>
                                   <textarea id="CateCountListTemplate" style="display:none"> 
                                 {#foreach $T.rows as record}  
-                                   <li><a href="#">{$T.record.Name} ({$T.record.Count})</a> </li>
+                                   <li><a href="Category.aspx?q={$T.record.Id}">{$T.record.Name} ({$T.record.Count})</a> </li>
                                 {#/for}   
                                 </textarea>  
                             </div>
@@ -118,7 +118,7 @@
                                 </ul> 
                                 <textarea id="YMCountListTemplate" style="display:none"> 
                                 {#foreach $T.rows as record}  
-                                   <li><a href="#">{$T.record.YM} ({$T.record.Count})</a> </li>
+                                   <li><a href="Month.aspx?q={$T.record.YyyyMm}">{$T.record.YM} ({$T.record.Count})</a> </li>
                                 {#/for}   
                                 </textarea>  
                             </div>                         
