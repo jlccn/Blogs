@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using DapperExtensions;
+using Blogs.DAL;
 
 namespace Blogs.Business
 {

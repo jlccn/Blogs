@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 
-namespace Blogs
+namespace Blogs.Model
 {   
     public class Archive 
     {

@@ -10,7 +10,7 @@ using DapperExtensions.Mapper;
 using DapperExtensions.Sql;
 
 
-namespace Blogs
+namespace Blogs.DAL
 {
     public class DB
     {
