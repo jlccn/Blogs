@@ -99,7 +99,6 @@
     <Content Include="Styles\common.css" />
     <Content Include="Styles\common2.css" />
     <Content Include="Styles\customcss.css" />
-    <Content Include="Styles\login.css" />
     <Content Include="Styles\shStyle.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -118,9 +117,6 @@
     <Compile Include="Business\ArticleBLL.ashx.cs">
       <DependentUpon>ArticleBLL.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Business\UserBLL_Ad.ashx.cs">
-      <DependentUpon>UserBLL_Ad.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -133,6 +129,7 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="SqlConnectionString.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blogs.DAL\Blogs.DAL.csproj">
@@ -149,10 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Business\ArticleBLL.ashx" />
-    <None Include="App_Data\BlogsDB.db3" />
-    <Content Include="Business\UserBLL_Ad.ashx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>

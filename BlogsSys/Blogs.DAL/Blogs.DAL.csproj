@@ -66,13 +66,14 @@
     <Compile Include="DapperExtensions\Sql\SqlGenerator.cs" />
     <Compile Include="DapperExtensions\Sql\SqliteDialect.cs" />
     <Compile Include="DapperExtensions\Sql\SqlServerDialect.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="DBHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DapperExtensions\buildPackage.cmd" />
     <None Include="DapperExtensions\DapperExtensions.nuspec" />
     <Content Include="DapperExtensions\packages.config" />
+    <None Include="DB\BlogsDB.db3" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DapperExtensions\DapperExtensions.csproj" />

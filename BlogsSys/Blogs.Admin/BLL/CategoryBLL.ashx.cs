@@ -6,14 +6,14 @@ using DapperExtensions;
 using Blogs.Model;
 using Blogs.DAL;
 
-namespace Blogs.Business
+namespace Blogs.Admin
 {
     /// <summary>
     /// CategoryBLL_Ad 的摘要说明
     /// </summary>
-    public class CategoryBLL_Ad : System.Web.WebHandler
+    public class CategoryBLL : System.Web.WebHandler
     {
-        IDatabase Db = DB.GetDatabase();
+        IDatabase Db = DBHelper.GetDatabase(SqlConnectionString.ConnectionString);
 
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
         public object GetPageData(int page, int rows, string key)

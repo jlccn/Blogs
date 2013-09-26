@@ -12,10 +12,11 @@ using DapperExtensions.Sql;
 
 namespace Blogs.DAL
 {
-    public class DB
+    public class DBHelper
     {
-        private static readonly string sqliteConnectionString = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
+        //public static readonly string sqliteConnectionString = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
 
+      
         //public static SQLiteConnection GetConn()
         //{
         //    var conn = new SQLiteConnection(sqliteConnectionString);
@@ -23,7 +24,7 @@ namespace Blogs.DAL
         //    return conn;
         //}
 
-        public static IDatabase GetDatabase()
+        public static IDatabase GetDatabase(string sqliteConnectionString)
         {
             IDatabase Db;
             SQLiteConnection connection = new SQLiteConnection(sqliteConnectionString);

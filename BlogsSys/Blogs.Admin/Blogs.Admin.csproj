@@ -55,10 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ArticleEdit.htm" />
-    <Content Include="ArticleList.htm" />
-    <Content Include="CategoryEdit.htm" />
-    <Content Include="CategoryList.htm" />
+    <Content Include="Article\ArticleEdit.htm" />
+    <Content Include="Article\ArticleList.htm" />
+    <Content Include="Category\CategoryEdit.htm" />
+    <Content Include="Category\CategoryList.htm" />
     <Content Include="index.htm" />
     <Content Include="login.htm" />
     <Content Include="Res\easyui\changelog.txt" />
@@ -917,6 +917,7 @@
     <Content Include="Scripts\kindeditor-4.1.7\themes\qq\editor.gif" />
     <Content Include="Scripts\kindeditor-4.1.7\themes\qq\qq.css" />
     <Content Include="Scripts\kindeditor-4.1.7\themes\simple\simple.css" />
+    <Content Include="Styles\login.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -924,15 +925,27 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\ArticleBLL_Ad.ashx.cs">
-      <DependentUpon>ArticleBLL_Ad.ashx</DependentUpon>
+    <Compile Include="BLL\ArticleBLL.ashx.cs">
+      <DependentUpon>ArticleBLL.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Business\CategoryBLL_Ad.ashx.cs">
-      <DependentUpon>CategoryBLL_Ad.ashx</DependentUpon>
+    <Compile Include="BLL\CategoryBLL.ashx.cs">
+      <DependentUpon>CategoryBLL.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SqlConnectionString.cs" />
+    <Compile Include="BLL\UserBLL.ashx.cs">
+      <DependentUpon>UserBLL.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Res\easyui\easyui.zip" />
@@ -941,8 +954,9 @@
     <Content Include="Res\easyui\locale.zip" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Business\ArticleBLL_Ad.ashx" />
-    <Content Include="Business\CategoryBLL_Ad.ashx" />
+    <Content Include="BLL\ArticleBLL.ashx" />
+    <Content Include="BLL\CategoryBLL.ashx" />
+    <Content Include="BLL\UserBLL.ashx" />
     <None Include="Res\jquery.uploadify-v2.1.4\check.php" />
     <None Include="Res\jquery.uploadify-v2.1.4\com\adobe\air\logging\FileTarget.as" />
     <None Include="Res\jquery.uploadify-v2.1.4\com\adobe\crypto\HMAC.as" />

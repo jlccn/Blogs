@@ -6,14 +6,14 @@ using System.Web.SessionState;
 using DapperExtensions;
 using Blogs.DAL;
 
-namespace Blogs.Business
+namespace Blogs.Admin
 {
     /// <summary>
     /// UserBLL_Ad 的摘要说明
     /// </summary>
-    public class UserBLL_Ad : System.Web.WebHandler, IRequiresSessionState
+    public class UserBLL : System.Web.WebHandler, IRequiresSessionState
     {
-        IDatabase Db = DB.GetDatabase();
+        IDatabase Db = DBHelper.GetDatabase(SqlConnectionString.ConnectionString);
 
         [ResponseAnnotation(Desc = "验证登录用户信息")]
         public string CheckLogin(string userName, string password)

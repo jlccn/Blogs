@@ -14,7 +14,7 @@ namespace Blogs
     /// </summary>
     public class ArticleBLL : System.Web.WebHandler
     {
-        IDatabase Db = DB.GetDatabase();
+        IDatabase Db = DBHelper.GetDatabase(SqlConnectionString.ConnectionString);
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
         public object GetPageData(int page, int rows, string key)
         {
