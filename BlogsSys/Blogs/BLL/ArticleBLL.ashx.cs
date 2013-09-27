@@ -14,7 +14,7 @@ namespace Blogs
     /// </summary>
     public class ArticleBLL : System.Web.WebHandler
     {
-        IDatabase Db = DBHelper.GetDatabase(SqlConnectionString.ConnectionString);
+        IDatabase Db = DBHelper.GetDatabase();
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
         public object GetPageData(int page, int rows, string key)
         {
@@ -37,12 +37,16 @@ namespace Blogs
         }
         public object GetPageDataByMonth(int page, int rows, string key)
         {
-            IPredicate pred = null;
+            IPredicateGroup predGrp = null;
             if (!string.IsNullOrEmpty(key))
             {
-                pred = Predicates.Field<Archive>(p => p.PublishDate.ToString("yyyyMM"), Operator.Eq, key);
-            }
-            return GetData(page, rows, pred);
+                DateTime dtBegin = DateTime.ParseExact(key + "01", "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
+                DateTime dtEnd = dtBegin.AddMonths(1);
+                var pred1 = Predicates.Field<Archive>(p => p.PublishDate, Operator.Ge, dtBegin);
+                var pred2 = Predicates.Field<Archive>(p => p.PublishDate, Operator.Lt, dtEnd);
+                predGrp = Predicates.Group(GroupOperator.And, pred1, pred2);
+            }            
+            return GetData(page, rows, predGrp);
         }
 
         private object GetData(int page, int rows, IPredicate pred)

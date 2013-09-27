@@ -10,12 +10,12 @@
     <link href="../Res/StyleSheet.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/json2.js" type="text/javascript"></script>   
     <script src="../Scripts/Ext.js" type="text/javascript"></script>
-     <script src="../BLL/UserBLL.ashx" charset="utf-8" type="text/javascript"></script> 
+     <script src="../BLL/AccountBLL.ashx" charset="utf-8" type="text/javascript"></script> 
     <script src="../BLL/CategoryBLL.ashx" charset="utf-8" type="text/javascript"></script>   
       <script type="text/javascript">
           $(function () {
-              $.net.UserBLL.Options.async = false;
-              $.net.UserBLL.IsLogin(function (d) { eval(d); });  
+              $.net.AccountBLL.Options.async = false;
+              $.net.AccountBLL.IsLogin(function (d) { eval(d); });  
            
               $('#list_data').datagrid({
                   title: '信息列表',
@@ -65,7 +65,7 @@
               }
               function editRow() {
                   var row = $('#list_data').datagrid('getSelected');
-                  location.href = 'CategoryEdit.htm?id=' + row.Id;
+                  location.href = 'Edit.htm?id=' + row.Id;
               }
 
               function delRow() {

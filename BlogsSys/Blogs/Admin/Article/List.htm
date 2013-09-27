@@ -10,7 +10,7 @@
     <link href="../Res/StyleSheet.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/json2.js" type="text/javascript"></script>   
     <script src="../Scripts/Ext.js" type="text/javascript"></script>
-    <script src="../Business/UserBLL.ashx" charset="utf-8" type="text/javascript"></script> 
+    <script src="../Business/AccountBLL.ashx" charset="utf-8" type="text/javascript"></script> 
     <script src="../Business/ArticleBLL.ashx" charset="utf-8" type="text/javascript"></script>   
       <script type="text/javascript">
           $(function () {
@@ -78,7 +78,7 @@
               }
               function editRow() {
                   var row = $('#list_data').datagrid('getSelected');
-                  location.href = 'ArticleEdit.htm?id=' + row.Id;
+                  location.href = 'Edit.htm?id=' + row.Id;
               }
 
               function delRow() {
@@ -114,7 +114,7 @@
               return date.Format("yyyy-MM-dd hh:mm");
           }
           function formatterSubject(val, row) {
-              return "<a href='../Detail.aspx?id=" + row.Id  + "' target='_blank'>" + val + "</a>"; 
+              return "<a href='../../Detail.aspx?id=" + row.Id  + "' target='_blank'>" + val + "</a>"; 
           }          
     </script>
 </head>

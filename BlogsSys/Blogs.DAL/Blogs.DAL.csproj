@@ -73,7 +73,6 @@
     <None Include="DapperExtensions\buildPackage.cmd" />
     <None Include="DapperExtensions\DapperExtensions.nuspec" />
     <Content Include="DapperExtensions\packages.config" />
-    <None Include="DB\BlogsDB.db3" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DapperExtensions\DapperExtensions.csproj" />
