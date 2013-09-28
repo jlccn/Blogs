@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DapperExtensions;
 using Blogs.DAL;
-using Blogs.Model;
-
+using Blogs.Common;
+using LinqKit;
+using System.Linq.Expressions;
 
 namespace Blogs
 {
@@ -14,78 +14,74 @@ namespace Blogs
     /// </summary>
     public class ArticleBLL : System.Web.WebHandler
     {
-        IDatabase Db = DBHelper.GetDatabase();
         [ResponseAnnotation(Desc = "取得分页需要的数据源")]
         public object GetPageData(int page, int rows, string key)
         {
-            IPredicate pred = null;
-            if (!string.IsNullOrEmpty(key))
-            {
-                key = string.Format("%{0}%", key);
-                pred = Predicates.Field<Archive>(p => p.Content, Operator.Like, key);
-            }
-           return GetData(page, rows, pred);
+            var predicate = PredicateBuilder.True<Archive>();
+            return GetPageData(page, rows, predicate);
         }
+
+        private object GetPageData(int page, int rows, Expression<Func<Archive, bool>> predicate)
+        {
+            using (SysEntities db = new SysEntities())
+            {
+                int totalCount = 0;
+                var list = db.Archive.GetPager(predicate, "PublishDate desc,Id desc", page, rows, out totalCount)
+                        .ToList()
+                        .Select(c => new
+                        {
+                            Id = c.Id,
+                            Subject = c.Subject,
+                            PublishDate = c.PublishDate,
+                            Content = FormatStr(c.Content, 200),
+                            VisitTotal = c.VisitTotal
+                        });
+                var obj = new { total = totalCount, rows = list };
+                return obj;
+            }
+        }
+
         public object GetPageDataByCategory(int page, int rows, string key)
         {
-            IPredicate pred = null;
-            if (!string.IsNullOrEmpty(key))
-            {               
-                pred = Predicates.Field<Archive>(p => p.CategoryId, Operator.Eq, key);
-            }
-            return GetData(page, rows, pred);
+            long categoryId = Convert.ToInt64(key);
+            var predicate = PredicateBuilder.True<Archive>();
+            predicate = predicate.And(p => p.CategoryId == categoryId);
+            return GetPageData(page, rows, predicate);
         }
         public object GetPageDataByMonth(int page, int rows, string key)
         {
-            IPredicateGroup predGrp = null;
-            if (!string.IsNullOrEmpty(key))
-            {
-                DateTime dtBegin = DateTime.ParseExact(key + "01", "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
-                DateTime dtEnd = dtBegin.AddMonths(1);
-                var pred1 = Predicates.Field<Archive>(p => p.PublishDate, Operator.Ge, dtBegin);
-                var pred2 = Predicates.Field<Archive>(p => p.PublishDate, Operator.Lt, dtEnd);
-                predGrp = Predicates.Group(GroupOperator.And, pred1, pred2);
-            }            
-            return GetData(page, rows, predGrp);
+            DateTime dtBegin = DateTime.ParseExact(key + "01", "yyyyMMdd", System.Globalization.CultureInfo.CurrentCulture);
+            DateTime dtEnd = dtBegin.AddMonths(1);
+            var predicate = PredicateBuilder.True<Archive>();           
+            //LINQ to Entities 不识别方法“System.String ToString(System.String)”，因此该方法无法转换为存储表达式。
+            //predicate = predicate.And(p => Convert.ToDateTime(p.PublishDate).ToString("yyyyMM") == key);
+            predicate = predicate.And(p => p.PublishDate >= dtBegin);
+            predicate = predicate.And(p => p.PublishDate < dtEnd);
+            return GetPageData(page, rows, predicate);
         }
-
-        private object GetData(int page, int rows, IPredicate pred)
-        {
-            int pageIndex = page - 1;
-            int pageSzie = rows;
-            var sort = new List<ISort>
-                                    {
-                                        Predicates.Sort<Archive>(p => p.PublishDate, false)
-                                    };
-
-            List<Archive> List = Db.GetPage<Archive>(pred, sort, pageIndex, pageSzie).ToList();
-            List.ForEach((p) =>
-            {
-                p.Content = FormatStr(p.Content, 200);
-            });
-            int count = Db.Count<Archive>(pred);
-
-            var obj = new { total = count, rows = List };
-            return obj;
-        }
-
-
-
 
 
         public object CountStat()
         {
-            int archiveCount = Db.GetList<Archive>().Count();
-            int visitCount = Db.GetList<Archive>().Sum(a => a.VisitTotal);
-            var obj = new { archiveCount = archiveCount, visitCount = visitCount };
-            return obj;
+            using (SysEntities db = new SysEntities())
+            {
+                int archiveCount = db.Archive.Count();
+                long? visitCount = db.Archive.Sum(a => a.VisitTotal);
+                var obj = new { archiveCount = archiveCount, visitCount = visitCount };
+                return obj;
+            }
         }
-      
+
         public void UpdateVisitTotal(int id)
         {
-            var m = Db.Get<Archive>(id);
-            m.VisitTotal = m.VisitTotal + 1;
-            Db.Update(m);           
+            using (SysEntities db = new SysEntities())
+            {
+                var m = db.Archive.Where(a => a.Id == id).FirstOrDefault();
+                m.VisitTotal = m.VisitTotal + 1;
+                //db.Archive.Attach(m);
+                db.ObjectStateManager.ChangeObjectState(m, System.Data.EntityState.Modified);
+                db.SaveChanges();
+            }
         }
 
         private string FormatStr(string str, int len)
@@ -98,39 +94,52 @@ namespace Blogs
         [ResponseAnnotation(Desc = "获取一条数据")]
         public Archive DetailById(int id)
         {
-            var result = Db.Get<Archive>(new Archive { Id = id });
-            return result;
+            using (SysEntities db = new SysEntities())
+            {
+                var result = db.Archive.Where(a => a.Id == id).FirstOrDefault();
+                return result;
+            }
         }
 
         [ResponseAnnotation(Desc = "获取按年月分组的文章数")]
         public object GetCountListByMonth()
         {
-           var list = Db.GetList<Archive>().GroupBy(p => new {
-                Year = p.PublishDate.Year,
-                Month = p.PublishDate.Month
-            }).Select( g=> new 
+            using (SysEntities db = new SysEntities())
             {
-                YyyyMm = g.Key.Year.ToString() + g.Key.Month.ToString().PadLeft(2,'0'),
-                YM = g.Key.Year.ToString() + "年" + g.Key.Month.ToString() + "月",
-                Count = g.Count()
-            }).OrderByDescending(g=>g.YM.Substring(0,4))
-            .ThenByDescending(g => g.YM.Substring(5, g.YM.Length - 6));
-           var obj = new { rows = list };
-           return obj;
+                var list = db.Archive.GroupBy(a => new
+                {
+                    Year = a.PublishDate.Value.Year,
+                    Month = a.PublishDate.Value.Month
+                })
+                .ToList()
+                .Select(g => new
+                {
+                    YyyyMm = g.Key.Year.ToString() + g.Key.Month.ToString().PadLeft(2, '0'),
+                    YM = g.Key.Year.ToString() + "年" + g.Key.Month.ToString() + "月",
+                    Count = g.Count()
+                })
+                .OrderByDescending(g => g.YM.Substring(0, 4))
+                .ThenByDescending(g => g.YM.Substring(5, g.YM.Length - 6));
+
+                var obj = new { rows = list };
+                return obj;
+            }
         }
 
         [ResponseAnnotation(Desc = "获取按文章类型分组的文章数")]
         public object GetCountListByCategory()
         {
-            var list = Db.GetList<Category>().Select(p => new
+            using (SysEntities db = new SysEntities())
             {
-                Id = p.Id,
-                Name = p.Name,
-                Count = Db.GetList<Archive>().Count(a => a.CategoryId == p.Id)
-            })
-            ;
-            var obj = new { rows = list };
-            return obj;
+                var list = db.Category.Select(t => new
+                   {
+                       Id = t.Id,
+                       Name = t.Name,
+                       Count = db.Archive.Count(a => a.CategoryId == t.Id)
+                   }).ToList();
+                var obj = new { rows = list };
+                return obj;
+            }
         }
 
     }

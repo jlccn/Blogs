@@ -16,7 +16,7 @@
         $.net.ArticleBLL.GetPageData(pageIndex, pageSize, q, function (data) {
             pagecount = Math.ceil(data.total / pageSize);  //向上取整，有小数，则整数部分加1
             $("#pager").pager({ pagenumber: 1, pagecount: pagecount, buttonClickCallback: PageClick });
-            OutputData(data);
+            OutputData(data);           
         });
     });
     PageClick = function (pageclickednumber) {

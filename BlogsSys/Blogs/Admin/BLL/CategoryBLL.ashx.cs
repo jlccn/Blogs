@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DapperExtensions;
-using Blogs.Model;
 using Blogs.DAL;
 
 namespace Blogs.Admin

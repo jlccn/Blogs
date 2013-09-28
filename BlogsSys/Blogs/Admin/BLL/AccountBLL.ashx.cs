@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
-using DapperExtensions;
 using Blogs.DAL;
-using Blogs.Model;
 using Blogs.Common;
 using System.Text;
-using Dapper;
 
 namespace Blogs.Admin.BLL
 {
@@ -17,30 +14,32 @@ namespace Blogs.Admin.BLL
     /// </summary>
     public class AccountBLL :  System.Web.WebHandler, IRequiresSessionState
     {
-        IDatabase Db = DBHelper.GetDatabase();
-
         public string CheckLogin(string userName, string password)
         {
             string passwordDes = EncryptAndDecrypte.EncryptString(password);                       
-            IPredicateGroup predGrp = null;
-            var pred1 = Predicates.Field<SysPerson>(p => p.Name, Operator.Eq, userName);
-            var pred2 = Predicates.Field<SysPerson>(p => p.Password, Operator.Eq, passwordDes);
-            predGrp = Predicates.Group(GroupOperator.And, pred1, pred2);
-            var person = Db.GetList<SysPerson>(predGrp).SingleOrDefault();       
-            if (person != null)
+            //IPredicateGroup predGrp = null;
+            //var pred1 = Predicates.Field<SysPerson>(p => p.Name, Operator.Eq, userName);
+            //var pred2 = Predicates.Field<SysPerson>(p => p.Password, Operator.Eq, passwordDes);
+            //predGrp = Predicates.Group(GroupOperator.And, pred1, pred2);
+            //var person = Db.GetList<SysPerson>(predGrp).SingleOrDefault(); 
+
+            using (SysEntities db = new SysEntities())
             {
-                Account account = new Account()
+                var person = db.SysPerson.Where(p => p.Name == userName && p.Password == password).FirstOrDefault();
+                if (person != null)
                 {
-                    Name = person.MyName,
-                    PersonName = person.Name,
-                    Id = person.Id                    
-                };
-                Session["account"] = account;
-                //Session["userName"] = person.MyName;
-                return "1";
+                    Account account = new Account()
+                    {
+                        Name = person.MyName,
+                        PersonName = person.Name,
+                        Id = person.Id
+                    };
+                    Session["account"] = account;
+                    return "1";
+                }
+                else
+                    return "0";
             }
-            else
-                return "0";     
         }
 
         public string IsLogin()
@@ -80,18 +79,12 @@ namespace Blogs.Admin.BLL
         /// </summary>
         /// <param name="personId">人员的Id</param>
         /// <returns>菜单拼接的字符串</returns>
-        public string GetMenuByAccount(ref Common.Account account)
+        private string GetMenuByAccount(ref Common.Account account)
         {
-            string personId = account.Id;
-            var pred1 = Predicates.Field<SysRoleSysPerson>(p => p.SysPersonId, Operator.Eq, personId);
-            foreach (var item in Db.GetList<SysRoleSysPerson>(pred1))
-            {
-                account.RoleIds.Add(item.SysRoleId);
-            }
+           
 
 
-
-            return personId; //待改
+            return ""; //待改
         }
 
         /// <summary>
@@ -99,7 +92,7 @@ namespace Blogs.Admin.BLL
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public string GetNode(SysMenu item, bool isLeaf = false)
+        private string GetNode(SysMenu item, bool isLeaf = false)
         {
             List<string> dataoptions = new List<string>();
             if (!string.IsNullOrWhiteSpace(item.Iconic))

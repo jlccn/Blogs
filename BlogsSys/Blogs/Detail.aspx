@@ -2,10 +2,10 @@
    Inherits="System.Web.UI.Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <script src="Scripts/kindeditor-4.1.7/kindeditor-min.js" type="text/javascript"></script>
-    <script src="Scripts/kindeditor-4.1.7/plugins/code/code.js" type="text/javascript"></script>
-    <script src="Scripts/kindeditor-4.1.7/plugins/code/prettify.js" type="text/javascript"></script>
-    <link href="Scripts/kindeditor-4.1.7/plugins/code/prettify.css" rel="stylesheet" type="text/css" />
+    <script src="Admin/Scripts/kindeditor-4.1.7/kindeditor-min.js" type="text/javascript"></script>
+    <script src="Admin/Scripts/kindeditor-4.1.7/plugins/code/code.js" type="text/javascript"></script>
+    <script src="Admin/Scripts/kindeditor-4.1.7/plugins/code/prettify.js" type="text/javascript"></script>
+    <link href="Admin/Scripts/kindeditor-4.1.7/plugins/code/prettify.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         $(function () {
             var id = $.getUrlParam('id');
